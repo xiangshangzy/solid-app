@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solid-deployment
+spec:
+  selector:
+    matchLabels:
+      app: solid
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: solid
+    spec:
+      containers:
+      - name: solid-image
+        image: ghcr.io/xiangshangzy/solid-app:latest 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: web
+          containerPort: 8000
+---
+apiVersion: v1
+kind: Service  #该配置的类型，我们使用的是 Service 服务类型
+metadata:
+  name: solid-service  #该服务类型的名称
+spec:
+  selector:    #选中的app部署实例
+    app: solid  #为该Deployment设置key为app，value为nginx的标签
+  ports:
+    - name: web
+      port: 8000
+      targetPort: web
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: solid-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: solid-service
+            port:
+              name: web
