@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: crpi-741hcott1a72ockm.cn-chengdu.personal.cr.aliyuncs.com
   IMAGE_NAME: ${{ github.repository }}
 
 
@@ -34,8 +34,8 @@ jobs:
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: xiangshangzy
+          password: 0987654321a
 
       - name: Extract Docker metadata
         id: meta

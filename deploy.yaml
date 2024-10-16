@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: solid-image
-        image: ghcr.io/xiangshangzy/solid-app:latest 
+        image: crpi-741hcott1a72ockm.cn-chengdu.personal.cr.aliyuncs.com/xiangshangzy/solid-app:latest 
         imagePullPolicy: IfNotPresent
         ports:
         - name: web
