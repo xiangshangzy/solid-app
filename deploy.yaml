@@ -16,11 +16,11 @@ spec:
       - name: solid-image
         image: crpi-741hcott1a72ockm.cn-chengdu.personal.cr.aliyuncs.com/xiangshangzy/solid-app:main 
         imagePullPolicy: IfNotPresent
-        imagePullSecrets:
-        - name: aliyun-secret
         ports:
         - name: web
           containerPort: 8000
+      imagePullSecrets:
+      - name: aliyun-secret
 ---
 apiVersion: v1
 kind: Service  #该配置的类型，我们使用的是 Service 服务类型
