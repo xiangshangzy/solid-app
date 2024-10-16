@@ -8,8 +8,7 @@ name: Docker
 on:
   push:
     branches: [ "main" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: [ 'v*' ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -19,8 +18,7 @@ env:
 
 
 jobs:
-  build:
-
+  build-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -84,7 +82,6 @@ jobs:
       # transparency data even for private images, pass --force to cosign below.
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
-        if: ${{ github.event_name != 'pull_request' }}
         env:
           # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
           TAGS: ${{ steps.meta.outputs.tags }}
