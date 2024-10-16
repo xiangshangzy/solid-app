@@ -1,4 +1,4 @@
-FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/node:lts-alpine AS base
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/node:20-bullseye-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
