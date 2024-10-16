@@ -8,6 +8,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
+
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -57,14 +58,16 @@ jobs:
         env:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
-        rname: Get pods
-
+        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+          name: Get pods
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: get podsun: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+          args: get pods
