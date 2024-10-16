@@ -14,8 +14,10 @@ spec:
     spec:
       containers:
       - name: solid-image
-        image: crpi-741hcott1a72ockm.cn-chengdu.personal.cr.aliyuncs.com/xiangshangzy/solid-app:latest 
+        image: crpi-741hcott1a72ockm.cn-chengdu.personal.cr.aliyuncs.com/xiangshangzy/solid-app:main 
         imagePullPolicy: IfNotPresent
+        imagePullSecrets:
+        - name: aliyun-secret
         ports:
         - name: web
           containerPort: 8000
