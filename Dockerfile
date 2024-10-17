@@ -1,34 +1,21 @@
 FROM dockerproxy.cn/node:20-slim AS base
-RUN npm config set registry https://registry.npmmirror.com/
-RUN npm i -g pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-#Build stage on top of 'base'
-FROM base AS dependencies
+RUN corepack enable
+
+COPY . /app
 WORKDIR /app
-# Copy package.json and pnpm-lock.yaml
-COPY package.json pnpm-lock.yaml ./
-# Install dependencies
-RUN pnpm install
 
-# Create a build stage based on the 'base' stage
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile --registry=https://registry.npmmirror.com/
+
 FROM base AS build
-WORKDIR /app
-# Copy code
-COPY . .
-# Copy dependencies stage
-COPY --from=dependencies /app/node_modules ./node_modules
-# Build the application using pnpm
-RUN pnpm build
-# Prune development dependencies
-RUN pnpm prune --prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --registry=https://registry.npmmirror.com/
+RUN pnpm run build
 
-# Deployment stage from the base
-FROM base AS deploy
-WORKDIR /app
-# Copy the built application
-COPY --from=build /app/dist/ ./dist/
-# Copy the production dependencies
-COPY --from=build /app/node_modules ./node_modules
-# Run the application
-# CMD [ "node", "dist/main.js" ]
-CMD [ "sleep", "1d" ]
+FROM base
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
+EXPOSE 8000
+CMD [ "pnpm", "start" ]
