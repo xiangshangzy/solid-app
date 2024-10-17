@@ -1,17 +1,17 @@
-FROM dockerproxy.cn/node:20-slim AS base
+FROM dockerproxy.cn/node:22-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-
+ENV COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 RUN corepack enable
 
 COPY . /app
 WORKDIR /app
 
 FROM base AS prod-deps
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile --registry=https://registry.npmmirror.com/
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS build
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --registry=https://registry.npmmirror.com/
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
 FROM base
