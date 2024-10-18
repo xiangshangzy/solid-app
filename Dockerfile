@@ -1,5 +1,6 @@
 FROM dockerproxy.cn/node:22-slim AS builder
 ENV COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
+ENV NPM_CONFIG_REGISTRY="https://registry.npmmirror.com"
 COPY . /app
 WORKDIR /app
 RUN npm run build
