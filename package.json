@@ -1,23 +1,23 @@
 {
-  "name": "solid-app",
-  "version": "0.0.0",
-  "description": "",
-  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "name": "rspack",
+  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "dev": "corepack pnpm install && vite",
-    "build": "corepack pnpm install --prod --frozen-lockfile && vite build"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "solid-devtools": "^0.29.3",
-    "typescript": "^5.6.3"
+    "dev": "rsbuild dev --open",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
   },
   "dependencies": {
-    "solid-js": "^1.9.2",
-    "vite": "^5.4.9",
-    "vite-plugin-solid": "^2.10.2",
-    "@unocss/vite": "^0.58.9",
-    "@unocss/preset-mini": "^0.58.9"
+    "@rsbuild/plugin-node-polyfill": "^1.2.0",
+    "consul": "^2.0.1",
+    "solid-js": "^1.9.3"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "^1.0.18",
+    "@rsbuild/plugin-babel": "^1.0.2",
+    "@rsbuild/plugin-solid": "^1.0.3",
+    "@unocss/postcss": "^0.63.6",
+    "typescript": "^5.6.3",
+    "unocss": "^0.63.6"
   }
 }
-

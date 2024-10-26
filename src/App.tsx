@@ -1,18 +1,12 @@
-import type { Component } from 'solid-js';
-
-const App: Component = () => {
+import './App.css';
+import Consul from 'consul'
+const consul=new Consul()
+const App = () => {
   return (
-    <p class="text-4xl text-green-700 text-center py-20">
-      Hello{' '}
-      <a
-        class="text-pink-600 hover:font-bold hover:border-1"
-        href="https://antfu.me/posts/reimagine-atomic-css"
-        target="atomic-css"
-      >
-        Atomic CSS
-      </a>
-      !
-    </p>
+    <div class="content">
+      <h1>Rsbuild with Solid</h1>
+      <p>Start building amazing things with Rsbuild.</p>
+    </div>
   );
 };
 
