@@ -3,7 +3,7 @@ ENV COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 ENV NPM_CONFIG_REGISTRY="https://registry.npmmirror.com"
 COPY . /app
 WORKDIR /app
-RUN npm run build
+RUN pnpm i && pnpm run build
 
 FROM dockerproxy.cn/nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
