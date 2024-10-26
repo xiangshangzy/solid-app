@@ -1,6 +1,9 @@
 FROM dockerproxy.cn/node:22-slim AS builder
 ENV COREPACK_NPM_REGISTRY="https://registry.npmmirror.com"
 ENV NPM_CONFIG_REGISTRY="https://registry.npmmirror.com"
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 COPY . /app
 WORKDIR /app
 RUN pnpm i && pnpm run build
