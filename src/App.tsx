@@ -8,7 +8,7 @@ const App: Component = () => {
         href="https://antfu.me/posts/reimagine-atomic-css"
         target="atomic-css"
       >
-        Atomic CSS
+        Vite And Atomic CSS
       </a>
       !
     </p>
